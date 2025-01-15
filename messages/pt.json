@@ -1,0 +1,25 @@
+{
+  "HomePage": {
+    "title": "Olá Mundo!",
+    "about": "Go to the about page"
+  },
+  "CreateTools": {
+    "btnCreate": "Cadastrar",
+    "btnCancel": "Cancelar",
+    "labelName": "Titulo",
+    "namePlaceholder": "Ex.: Zod",
+    "labelUrl": "URL",
+    "urlPlaceholder": "https://zod.dev/",
+    "labelDescription": "Descrição",
+    "descriptionPlaceholder": "Digite uma descrição sobre a tool...",
+    "labelTags": "Tags",
+    "tagsPlaceholder": "Ex: validação, formulário, javascript, typescript",
+    "successCreateTool": "Tool criada com sucesso",
+    "validations": {
+      "name": "Nome",
+      "description": "Descrição",
+      "url": "URL",
+      "tags": "Tags"
+    }
+  }
+}

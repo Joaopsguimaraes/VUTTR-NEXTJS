@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -20,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Label } from "./ui/label";
 
 import { useCreateToolDialog } from "@/context/create-tool-context";
+import { useTranslations } from "next-intl";
 
 export function CreateToolForm() {
   const [result, handleCreateTool, isPending] = useActionState(onSubmitAction, {
@@ -29,6 +31,7 @@ export function CreateToolForm() {
   const form = useForm<CreateToolSchemaType>({
     resolver: zodResolver(createToolSchema),
   });
+  const t = useTranslations("CreateTools");
   const { toast } = useToast();
   const { setOnOpenDialog } = useCreateToolDialog();
   const { register } = form;
@@ -38,7 +41,7 @@ export function CreateToolForm() {
       if (Array.isArray(result.message)) {
         result.message.forEach((error) => {
           toast({
-            title: error.path,
+            title: t(`validations.${error.path.trim().toLowerCase()}`),
             description: error.message,
             variant: "destructive",
           });
@@ -54,11 +57,11 @@ export function CreateToolForm() {
     if (result.message === "SUCCESS") {
       setOnOpenDialog(false);
       toast({
-        title: "Tool Criada com sucesso!",
+        title: t("successCreateTool"),
         variant: "success",
       });
     }
-  }, [result, setOnOpenDialog, toast]);
+  }, [result, setOnOpenDialog]);
 
   return (
     <form action={handleCreateTool} className="flex flex-col gap-5">
@@ -69,42 +72,42 @@ export function CreateToolForm() {
       ) : (
         <>
           <div className="space-y-2">
-            <Label>Titulo</Label>
+            <Label>{t("labelName")}</Label>
             <Input
-              placeholder="Digite o titulo..."
+              placeholder={t("namePlaceholder")}
               {...form.register("name")}
             />
           </div>
 
           <div className="space-y-2">
-            <Label>URL</Label>
-            <Input placeholder="Digite a URL..." {...register("url")} />
+            <Label>{t("labelUrl")}</Label>
+            <Input placeholder={t("urlPlaceholder")} {...register("url")} />
           </div>
 
           <div className="space-y-2">
-            <Label>Descrição</Label>
+            <Label>{t("labelDescription")}</Label>
             <Textarea
-              placeholder="Digite a descrição..."
+              placeholder={t("descriptionPlaceholder")}
               rows={10}
               {...register("description")}
             />
           </div>
           <div className="space-y-2">
-            <Label>Tags</Label>
-            <Input placeholder="Digite as tags.." {...register("tags")} />
+            <Label>{t("labelTags")}</Label>
+            <Input placeholder={t("tagsPlaceholder")} {...register("tags")} />
           </div>
         </>
       )}
 
       <DialogFooter className="w-full flex justify-end gap-2">
         <Button type="button" variant="outline">
-          Cancelar
+          {t("btnCancel")}
         </Button>
         <Button disabled={isPending} className="min-w-32">
           {isPending ? (
             <Loader className="animate-spin" />
           ) : (
-            <span>Cadastrar</span>
+            <span>{t("btnCreate")}</span>
           )}
         </Button>
       </DialogFooter>

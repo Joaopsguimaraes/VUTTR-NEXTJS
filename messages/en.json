@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "title": "Olá Mundo!",
+    "about": "Go to the about page"
+  },
+  "CreateTools": {
+    "btnCreate": "Create",
+    "labelTitle": "Title",
+    "labelUrl": "URL",
+    "labelDescription": "Description",
+    "labelTags": "Tags"
+  }
+}
