@@ -8,7 +8,7 @@ export async function ListTools() {
   const dataFormatted = listToolsSchema.parse(data);
 
   return (
-    <div className="w-[1100px] mt-10 flex items-center gap-4 flex-col">
+    <div className="w-[1100px] flex items-center gap-4 flex-col">
       <CreateTool />
       <h2 className="text-2xl font-bold self-start">Tools cadastradas</h2>
       {dataFormatted?.map((data) => (

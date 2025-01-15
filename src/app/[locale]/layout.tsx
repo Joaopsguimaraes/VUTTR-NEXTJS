@@ -8,6 +8,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { ClerkProvider } from "@clerk/nextjs";
+import { SiteHeader } from "@/components/header";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,14 +40,17 @@ export default async function RootLayout({
     <html lang="pt-br">
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
+          "bg-background w-screen h-screen font-sans antialiased",
           fontSans.variable
         )}
       >
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <Toaster />
-        </NextIntlClientProvider>
+        <ClerkProvider>
+          <NextIntlClientProvider messages={messages}>
+            <SiteHeader />
+            <main className="size-full relative flex-1">{children}</main>
+            <Toaster />
+          </NextIntlClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
