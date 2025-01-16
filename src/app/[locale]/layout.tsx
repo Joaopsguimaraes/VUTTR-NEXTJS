@@ -9,7 +9,6 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ClerkProvider } from "@clerk/nextjs";
-import { SiteHeader } from "@/components/header";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -37,7 +36,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" suppressHydrationWarning>
       <body
         className={cn(
           "bg-background w-screen h-screen font-sans antialiased",
@@ -46,7 +45,6 @@ export default async function RootLayout({
       >
         <ClerkProvider>
           <NextIntlClientProvider messages={messages}>
-            <SiteHeader />
             <main className="size-full relative flex-1">{children}</main>
             <Toaster />
           </NextIntlClientProvider>
