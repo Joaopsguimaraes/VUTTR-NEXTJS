@@ -21,5 +21,11 @@
       "url": "URL",
       "tags": "Tags"
     }
+  },
+  "ListTools": {
+    "title": "Tools cadastradas",
+    "search": "Pesquisar",
+    "searchPlaceholder": "Pesquise pelas tools cadastradas...",
+    "enableSearchTags": "Pesquisar por tags"
   }
 }

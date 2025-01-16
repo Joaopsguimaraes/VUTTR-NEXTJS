@@ -1,14 +1,14 @@
-import { SiteHeader } from "@/components/header";
+import { SiteHeader } from '@/components/header'
 
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <div className="size-full flex flex-col flex-1">
+    <div className="flex size-full flex-1 flex-col">
       <SiteHeader />
       {children}
     </div>
-  );
+  )
 }

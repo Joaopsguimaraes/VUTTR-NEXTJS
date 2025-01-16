@@ -1,40 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
+'use client'
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { DialogFooter } from "./ui/dialog";
-import { Button } from "./ui/button";
-import { onSubmitAction } from "@/actions/create-tool-action";
-
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect } from 'react'
+import { onSubmitAction } from '@/actions/create-tool-action'
+import { useCreateToolDialog } from '@/context/create-tool-context'
 import {
   createToolSchema,
   type CreateToolSchemaType,
-} from "@/validations/create-tool-schema";
-import { Skeleton } from "./ui/skeleton";
-import { Loader } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { Label } from "./ui/label";
+} from '@/validations/create-tool-schema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useForm } from 'react-hook-form'
 
-import { useCreateToolDialog } from "@/context/create-tool-context";
-import { useTranslations } from "next-intl";
+import { useToast } from '@/hooks/use-toast'
+
+import { Button } from './ui/button'
+import { DialogFooter } from './ui/dialog'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import { Skeleton } from './ui/skeleton'
+import { Textarea } from './ui/textarea'
 
 export function CreateToolForm() {
   const [result, handleCreateTool, isPending] = useActionState(onSubmitAction, {
     error: false,
-    message: "",
-  });
+    message: '',
+  })
   const form = useForm<CreateToolSchemaType>({
     resolver: zodResolver(createToolSchema),
-  });
-  const t = useTranslations("CreateTools");
-  const { toast } = useToast();
-  const { setOnOpenDialog } = useCreateToolDialog();
-  const { register } = form;
+  })
+  const t = useTranslations('CreateTools')
+  const { toast } = useToast()
+  const { setOnOpenDialog } = useCreateToolDialog()
+  const { register } = form
 
   useEffect(() => {
     if (result.error) {
@@ -43,25 +42,25 @@ export function CreateToolForm() {
           toast({
             title: t(`validations.${error.path.trim().toLowerCase()}`),
             description: error.message,
-            variant: "destructive",
-          });
-        });
+            variant: 'destructive',
+          })
+        })
       } else {
         toast({
           title: result.message,
-          variant: "destructive",
-        });
+          variant: 'destructive',
+        })
       }
     }
 
-    if (result.message === "SUCCESS") {
-      setOnOpenDialog(false);
+    if (result.message === 'SUCCESS') {
+      setOnOpenDialog(false)
       toast({
-        title: t("successCreateTool"),
-        variant: "success",
-      });
+        title: t('successCreateTool'),
+        variant: 'success',
+      })
     }
-  }, [result, setOnOpenDialog]);
+  }, [result, setOnOpenDialog])
 
   return (
     <form action={handleCreateTool} className="flex flex-col gap-5">
@@ -72,45 +71,45 @@ export function CreateToolForm() {
       ) : (
         <>
           <div className="space-y-2">
-            <Label>{t("labelName")}</Label>
+            <Label>{t('labelName')}</Label>
             <Input
-              placeholder={t("namePlaceholder")}
-              {...form.register("name")}
+              placeholder={t('namePlaceholder')}
+              {...form.register('name')}
             />
           </div>
 
           <div className="space-y-2">
-            <Label>{t("labelUrl")}</Label>
-            <Input placeholder={t("urlPlaceholder")} {...register("url")} />
+            <Label>{t('labelUrl')}</Label>
+            <Input placeholder={t('urlPlaceholder')} {...register('url')} />
           </div>
 
           <div className="space-y-2">
-            <Label>{t("labelDescription")}</Label>
+            <Label>{t('labelDescription')}</Label>
             <Textarea
-              placeholder={t("descriptionPlaceholder")}
+              placeholder={t('descriptionPlaceholder')}
               rows={10}
-              {...register("description")}
+              {...register('description')}
             />
           </div>
           <div className="space-y-2">
-            <Label>{t("labelTags")}</Label>
-            <Input placeholder={t("tagsPlaceholder")} {...register("tags")} />
+            <Label>{t('labelTags')}</Label>
+            <Input placeholder={t('tagsPlaceholder')} {...register('tags')} />
           </div>
         </>
       )}
 
-      <DialogFooter className="w-full flex justify-end gap-2">
-        <Button type="button" variant="outline">
-          {t("btnCancel")}
+      <DialogFooter className="flex w-full justify-end gap-2">
+        <Button type="button" variant="outline" className="min-w-40">
+          {t('btnCancel')}
         </Button>
-        <Button disabled={isPending} className="min-w-32">
+        <Button disabled={isPending} className="min-w-40">
           {isPending ? (
             <Loader className="animate-spin" />
           ) : (
-            <span>{t("btnCreate")}</span>
+            <span>{t('btnCreate')}</span>
           )}
         </Button>
       </DialogFooter>
     </form>
-  );
+  )
 }

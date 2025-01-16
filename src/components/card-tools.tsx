@@ -1,7 +1,8 @@
-"use client";
+'use client'
 
-import { PencilIcon, TrashIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { PencilIcon, TrashIcon } from 'lucide-react'
+
+import { Button } from './ui/button'
 import {
   Card,
   CardContent,
@@ -9,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from './ui/card'
 
 interface Props {
-  id: string;
-  name: string;
-  description: string;
-  tags: string[];
+  id: string
+  name: string
+  description: string
+  tags: string[]
 }
 
 export function CardTools({ name, description, tags }: Props) {
@@ -24,7 +25,7 @@ export function CardTools({ name, description, tags }: Props) {
       <CardContent className="w-full min-w-[1100px]">
         <CardHeader>
           <CardTitle className="w-full text-lg">{name}</CardTitle>
-          <div className="w-full flex justify-end">
+          <div className="flex w-full justify-end">
             <Button size="icon" variant="ghost">
               <PencilIcon />
             </Button>
@@ -33,7 +34,9 @@ export function CardTools({ name, description, tags }: Props) {
             </Button>
           </div>
         </CardHeader>
-        <CardDescription className="mb-5 px-6 text-md">{description}</CardDescription>
+        <CardDescription className="text-md mb-5 px-6">
+          {description}
+        </CardDescription>
         <CardFooter>
           {tags.map((tag, idx) => (
             <div key={idx}>
@@ -43,5 +46,5 @@ export function CardTools({ name, description, tags }: Props) {
         </CardFooter>
       </CardContent>
     </Card>
-  );
+  )
 }

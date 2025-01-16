@@ -1,16 +1,18 @@
-import { listToolsSchema } from "@/validations/list-tools";
-import { CardTools } from "./card-tools";
-import { CreateTool } from "./create-tool";
-import { db } from "@/lib/prisma";
+import { listToolsSchema } from '@/validations/list-tools'
+
+import { db } from '@/lib/prisma'
+
+import { CardTools } from './card-tools'
+import { CreateTool } from './create-tool'
+import { HeaderToolList } from './header-tool-list'
 
 export async function ListTools() {
-  const data = await db.tool.findMany();
-  const dataFormatted = listToolsSchema.parse(data);
+  const data = await db.tool.findMany()
+  const dataFormatted = listToolsSchema.parse(data)
 
   return (
-    <div className="w-[1100px] flex items-center gap-4 flex-col">
-      <CreateTool />
-      <h2 className="text-2xl font-bold self-start">Tools cadastradas</h2>
+    <div className="flex w-[1100px] flex-col items-center gap-4">
+      <HeaderToolList />
       {dataFormatted?.map((data) => (
         <CardTools
           key={data.id}
@@ -21,5 +23,5 @@ export async function ListTools() {
         />
       ))}
     </div>
-  );
+  )
 }

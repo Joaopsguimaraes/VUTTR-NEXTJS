@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const listToolsSchema = z.array(
   z.object({
@@ -9,10 +9,10 @@ export const listToolsSchema = z.array(
     tags: z.string().transform((value) => {
       return value
         .trim()
-        .split(",")
-        .map((tag) => tag.trim());
+        .split(',')
+        .map((tag) => tag.trim())
     }),
   })
-);
+)
 
-export type ListToolsType = z.infer<typeof listToolsSchema>;
+export type ListToolsType = z.infer<typeof listToolsSchema>
