@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import { PrismaClient } from '@prisma/client'
 
 export const db = new PrismaClient()

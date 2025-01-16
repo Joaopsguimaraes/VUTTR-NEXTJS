@@ -1,7 +1,6 @@
-'use client'
+import { PencilIcon } from 'lucide-react'
 
-import { PencilIcon, TrashIcon } from 'lucide-react'
-
+import { RemoveToolButton } from './remove-tool-button'
 import { Button } from './ui/button'
 import {
   Card,
@@ -19,18 +18,16 @@ interface Props {
   tags: string[]
 }
 
-export function CardTools({ name, description, tags }: Props) {
+export function CardTools({ id, name, description, tags }: Props) {
   return (
     <Card>
       <CardContent className="w-full min-w-[1100px]">
         <CardHeader>
           <CardTitle className="w-full text-lg">{name}</CardTitle>
           <div className="flex w-full justify-end">
+            <RemoveToolButton id={id} name={name} />
             <Button size="icon" variant="ghost">
               <PencilIcon />
-            </Button>
-            <Button size="icon" variant="ghost">
-              <TrashIcon />
             </Button>
           </div>
         </CardHeader>
