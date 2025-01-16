@@ -1,25 +1,23 @@
-import { listToolsSchema } from '@/validations/list-tools'
-
-import { db } from '@/lib/prisma'
+import { type ListToolsType } from '@/validations/list-tools'
 
 import { CardTools } from './card-tools'
-import { CreateTool } from './create-tool'
 import { HeaderToolList } from './header-tool-list'
 
-export async function ListTools() {
-  const data = await db.tool.findMany()
-  const dataFormatted = listToolsSchema.parse(data)
+interface Props {
+  data: ListToolsType
+}
 
+export function ListTools({ data }: Props) {
   return (
-    <div className="flex w-[1100px] flex-col items-center gap-4">
+    <div className="mt-10 flex w-[1100px] flex-col items-center gap-4">
       <HeaderToolList />
-      {dataFormatted?.map((data) => (
+      {data?.map((tool) => (
         <CardTools
-          key={data.id}
-          name={data.name}
-          description={data.description}
-          tags={data.tags}
-          id={data.id.toString()}
+          key={tool.id}
+          name={tool.name}
+          description={tool.description}
+          tags={tool.tags}
+          id={tool.id.toString()}
         />
       ))}
     </div>

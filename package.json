@@ -29,6 +29,8 @@
     "eslint-config-turbo": "^2.3.3",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-tailwindcss": "^3.17.5",
+    "loadsh": "^0.0.4",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.471.1",
     "next": "15.1.4",
     "next-intl": "^3.26.3",
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/lodash": "^4.17.14",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
