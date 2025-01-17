@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { transformZodErrors } from '@/utils/transform-zod-errors'
 import { createToolSchema } from '@/validations/create-tool-schema'
+import { editToolSchema } from '@/validations/edit-tool-schema'
 import { z } from 'zod'
 
 import { db } from '@/lib/prisma'
@@ -14,16 +15,19 @@ type FormState = {
   message: string | ZodErrors
 }
 
-export async function onSubmitAction(
+export async function onEditToolAction(
   prevState: FormState,
   data: FormData
 ): Promise<FormState> {
   const formData = Object.fromEntries(data)
 
   try {
-    const parsed = createToolSchema.parse(formData)
+    const parsed = editToolSchema.parse(formData)
 
-    await db.tool.create({
+    await db.tool.update({
+      where: {
+        id: parsed.id,
+      },
       data: {
         ...parsed,
       },

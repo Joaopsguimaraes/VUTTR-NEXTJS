@@ -1,5 +1,8 @@
+import type { EditToolType } from '@/validations/edit-tool-schema'
+import type { ListToolsType } from '@/validations/list-tools'
 import { PencilIcon } from 'lucide-react'
 
+import { EditTool } from './edit-tool'
 import { RemoveToolButton } from './remove-tool-button'
 import { Button } from './ui/button'
 import {
@@ -12,30 +15,25 @@ import {
 } from './ui/card'
 
 interface Props {
-  id: string
-  name: string
-  description: string
-  tags: string[]
+  data: ListToolsType
 }
 
-export function CardTools({ id, name, description, tags }: Props) {
+export function CardTools({ data }: Props) {
   return (
     <Card>
       <CardContent className="w-full min-w-[1100px]">
         <CardHeader>
-          <CardTitle className="w-full text-lg">{name}</CardTitle>
+          <CardTitle className="w-full text-lg">{data.name}</CardTitle>
           <div className="flex w-full justify-end">
-            <RemoveToolButton id={id} name={name} />
-            <Button size="icon" variant="ghost">
-              <PencilIcon />
-            </Button>
+            <EditTool data={data} />
+            <RemoveToolButton id={data.id} name={data.name} />
           </div>
         </CardHeader>
         <CardDescription className="text-md mb-5 px-6">
-          {description}
+          {data.description}
         </CardDescription>
         <CardFooter>
-          {tags.map((tag, idx) => (
+          {data.tags.map((tag, idx) => (
             <div key={idx}>
               <span className="mx-1 font-bold">#{tag}</span>
             </div>
