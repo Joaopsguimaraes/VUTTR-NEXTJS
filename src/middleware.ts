@@ -69,7 +69,7 @@ export default clerkMiddleware(
     return response
   },
   {
-    debug: true,
+    // debug: true,
   }
 )
 

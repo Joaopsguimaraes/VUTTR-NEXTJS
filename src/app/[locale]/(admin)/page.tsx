@@ -1,4 +1,6 @@
+import { headers } from 'next/headers'
 import { listToolsSchema } from '@/validations/list-tools'
+import { auth } from '@clerk/nextjs/server'
 
 import { getTools } from '@/lib/prisma'
 import { ListTools } from '@/components/list-tools'

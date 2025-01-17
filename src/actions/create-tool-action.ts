@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { transformZodErrors } from '@/utils/transform-zod-errors'
 import { createToolSchema } from '@/validations/create-tool-schema'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { z } from 'zod'
 
 import { db } from '@/lib/prisma'
@@ -19,13 +20,35 @@ export async function onSubmitAction(
   data: FormData
 ): Promise<FormState> {
   const formData = Object.fromEntries(data)
+  const user = await currentUser()
 
   try {
     const parsed = createToolSchema.parse(formData)
 
+    if (!user) {
+      return {
+        error: true,
+        message: 'User not logged',
+      }
+    }
+
+    const userFounded = await db.user.findUnique({
+      where: {
+        clerkId: user.id,
+      },
+    })
+
+    if (!userFounded) {
+      return {
+        error: true,
+        message: 'User not logged',
+      }
+    }
+
     await db.tool.create({
       data: {
         ...parsed,
+        userId: userFounded.id,
       },
     })
 

@@ -86,7 +86,7 @@ export function EditTool({ data }: Props) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{`${t('Atualizar a tool')}: ${data.name}`}</DialogTitle>
+          <DialogTitle>{`${t('title')}: ${data.name}`}</DialogTitle>
         </DialogHeader>
         <form action={handleCreateTool} className="flex flex-col gap-5">
           {isPending ? (
@@ -128,13 +128,13 @@ export function EditTool({ data }: Props) {
 
           <DialogFooter className="flex w-full justify-end gap-2">
             <Button type="button" variant="outline" className="min-w-40">
-              {t('btnUpdate')}
+              {t('btnCancel')}
             </Button>
             <Button disabled={isPending} className="min-w-40">
               {isPending ? (
                 <Loader className="animate-spin" />
               ) : (
-                <span>{t('btnCreate')}</span>
+                <span>{t('btnUpdate')}</span>
               )}
             </Button>
           </DialogFooter>
