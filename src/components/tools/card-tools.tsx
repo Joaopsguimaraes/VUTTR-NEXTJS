@@ -1,10 +1,5 @@
-import type { EditToolType } from '@/validations/edit-tool-schema'
 import type { ListToolsType } from '@/validations/list-tools'
-import { PencilIcon } from 'lucide-react'
 
-import { EditTool } from './edit-tool'
-import { RemoveToolButton } from './remove-tool-button'
-import { Button } from './ui/button'
 import {
   Card,
   CardContent,
@@ -12,13 +7,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './ui/card'
+} from '../ui/card'
+import { EditTool } from './edit-tool'
+import { RemoveToolButton } from './remove-tool-button'
 
-interface Props {
+interface CardToolProps {
   data: ListToolsType
 }
 
-export function CardTools({ data }: Props) {
+export function CardTool({ data }: CardToolProps) {
   return (
     <Card>
       <CardContent className="w-full min-w-[1100px]">

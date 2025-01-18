@@ -3,6 +3,7 @@
 import { useActionState } from 'react'
 import { onRemoveToolAction } from '@/actions/delete-tool-action'
 import { Loader, TrashIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
   AlertDialog,
@@ -10,18 +11,19 @@ import {
   AlertDialogContent,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from './ui/alert-dialog'
-import { Button } from './ui/button'
+} from '../ui/alert-dialog'
+import { Button } from '../ui/button'
 
-interface Props {
+interface RemoveToolButtonProps {
   id: string
   name: string
 }
 
-export function RemoveToolButton({ id, name }: Props) {
+export function RemoveToolButton({ id, name }: RemoveToolButtonProps) {
   const [_, handleRemoveTool, isPending] = useActionState(onRemoveToolAction, {
     message: '',
   })
+  const t = useTranslations('removeTool')
 
   return (
     <AlertDialog>
@@ -31,21 +33,21 @@ export function RemoveToolButton({ id, name }: Props) {
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertDialogTitle>{`Deseja remover a tool ${name}?`}</AlertDialogTitle>
+        <AlertDialogTitle>{`${t('titleDialog')} ${name}?`}</AlertDialogTitle>
         <form action={handleRemoveTool}>
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="name" value={name} />
           <div className="flex w-full items-center justify-end gap-2">
             <AlertDialogCancel asChild>
               <Button className="min-w-40" variant="outline" type="button">
-                Cancelar
+                {t('btnCancel')}
               </Button>
             </AlertDialogCancel>
             <Button className="min-w-40">
               {isPending ? (
                 <Loader className="animate-spin" />
               ) : (
-                <span>Confirmar</span>
+                <span>{t('btnConfirm')}</span>
               )}
             </Button>
           </div>

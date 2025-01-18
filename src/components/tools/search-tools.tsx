@@ -6,10 +6,8 @@ import { useDebouncedCallback } from '@/utils/use-debounce-callback'
 import { SearchIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from './ui/button'
-import { Checkbox } from './ui/checkbox'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 
 export function SearchTool() {
   const searchParams = useSearchParams()
@@ -56,7 +54,6 @@ export function SearchTool() {
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col items-start gap-1">
-        {/* <Label className="font-medium text-md">{t('search')}</Label> */}
         <Input
           className="w-96"
           placeholder={t('searchPlaceholder')}

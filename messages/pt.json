@@ -1,9 +1,6 @@
 {
-  "HomePage": {
-    "title": "Olá Mundo!",
-    "about": "Go to the about page"
-  },
   "CreateTools": {
+    "title": "Cadastre uma tool",
     "btnCreate": "Cadastrar",
     "btnCancel": "Cancelar",
     "labelName": "Titulo",
@@ -40,12 +37,18 @@
     "descriptionPlaceholder": "Digite uma descrição sobre a tool...",
     "labelTags": "Tags",
     "tagsPlaceholder": "Ex: validação, formulário, javascript, typescript",
-    "successCreateTool": "Tool criada com sucesso",
+    "successUpdateTool": "Tool atualizada com sucesso",
     "validations": {
+      "id": "ID",
       "name": "Nome",
       "description": "Descrição",
       "url": "URL",
       "tags": "Tags"
     }
+  },
+  "removeTool":{
+    "titleDialog": "Deseja remover a tool",
+    "btnConfirm": "Remover",
+    "btnCancel": "Cancelar"
   }
 }

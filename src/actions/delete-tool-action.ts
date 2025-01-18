@@ -2,35 +2,22 @@
 
 import { revalidatePath } from 'next/cache'
 
-import { db } from '@/lib/prisma'
+import { deleteToolFromId } from '@/lib/prisma'
 
-type FormState = {
+type DeleteToolFormState = {
   message: string
 }
 
 export async function onRemoveToolAction(
-  prevState: FormState,
+  _: DeleteToolFormState,
   data: FormData
-): Promise<FormState> {
+): Promise<DeleteToolFormState> {
   const formData = Object.fromEntries(data)
 
   try {
-    const toolFounded = await db.tool.findUnique({
-      where: {
-        id: formData.id as string,
-      },
-    })
+    await deleteToolFromId(formData.id as string)
 
-    if (toolFounded) {
-      await db.tool.delete({
-        where: {
-          id: toolFounded.id,
-        },
-      })
-
-      revalidatePath('/')
-    }
-
+    revalidatePath('/')
     return {
       message: 'SUCCESS',
     }

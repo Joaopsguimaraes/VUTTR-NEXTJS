@@ -2,31 +2,35 @@
 'use client'
 
 import { useActionState, useEffect } from 'react'
-import { onSubmitAction } from '@/actions/create-tool-action'
+import { onCreateToolAction } from '@/actions/create-tool-action'
 import { useCreateToolDialog } from '@/context/create-tool-context'
 import {
   createToolSchema,
   type CreateToolSchemaType,
 } from '@/validations/create-tool-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { DialogClose } from '@radix-ui/react-dialog'
 import { Loader } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import { useToast } from '@/hooks/use-toast'
 
-import { Button } from './ui/button'
-import { DialogFooter } from './ui/dialog'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import { Skeleton } from './ui/skeleton'
-import { Textarea } from './ui/textarea'
+import { Button } from '../ui/button'
+import { DialogFooter } from '../ui/dialog'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
+import { Skeleton } from '../ui/skeleton'
+import { Textarea } from '../ui/textarea'
 
 export function CreateToolForm() {
-  const [result, handleCreateTool, isPending] = useActionState(onSubmitAction, {
-    error: false,
-    message: '',
-  })
+  const [result, handleCreateTool, isPending] = useActionState(
+    onCreateToolAction,
+    {
+      error: false,
+      message: '',
+    }
+  )
   const form = useForm<CreateToolSchemaType>({
     resolver: zodResolver(createToolSchema),
   })
@@ -99,9 +103,11 @@ export function CreateToolForm() {
       )}
 
       <DialogFooter className="flex w-full justify-end gap-2">
-        <Button type="button" variant="outline" className="min-w-40">
-          {t('btnCancel')}
-        </Button>
+        <DialogClose asChild>
+          <Button type="button" variant="outline" className="min-w-40">
+            {t('btnCancel')}
+          </Button>
+        </DialogClose>
         <Button disabled={isPending} className="min-w-40">
           {isPending ? (
             <Loader className="animate-spin" />

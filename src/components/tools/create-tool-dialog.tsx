@@ -1,15 +1,15 @@
 import { useCreateToolDialog } from '@/context/create-tool-context'
 import { useTranslations } from 'next-intl'
 
-import { CreateToolForm } from './create-tool-form'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog'
+} from '../ui/dialog'
+import { CreateToolForm } from './create-tool-form'
 
 export function CreateToolDialog() {
   const { onOpenDialog, setOnOpenDialog } = useCreateToolDialog()
@@ -22,7 +22,7 @@ export function CreateToolDialog() {
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Cadastre a Tool</DialogTitle>
+          <DialogTitle>{t('title')}</DialogTitle>
         </DialogHeader>
         <CreateToolForm />
       </DialogContent>

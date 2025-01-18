@@ -2,36 +2,28 @@
 
 import { revalidatePath } from 'next/cache'
 import { transformZodErrors } from '@/utils/transform-zod-errors'
-import { createToolSchema } from '@/validations/create-tool-schema'
 import { editToolSchema } from '@/validations/edit-tool-schema'
 import { z } from 'zod'
 
-import { db } from '@/lib/prisma'
+import { updateToolFromId } from '@/lib/prisma'
 
-import { ZodErrors } from './../utils/transform-zod-errors'
+import { ZodErrors } from '../utils/transform-zod-errors'
 
-type FormState = {
+type EditToolFormState = {
   error: boolean
   message: string | ZodErrors
 }
 
-export async function onEditToolAction(
-  prevState: FormState,
+export async function onUpdateToolAction(
+  _: EditToolFormState,
   data: FormData
-): Promise<FormState> {
+): Promise<EditToolFormState> {
   const formData = Object.fromEntries(data)
 
   try {
-    const parsed = editToolSchema.parse(formData)
+    const toolParsed = editToolSchema.parse(formData)
 
-    await db.tool.update({
-      where: {
-        id: parsed.id,
-      },
-      data: {
-        ...parsed,
-      },
-    })
+    await updateToolFromId(toolParsed.id, toolParsed)
 
     revalidatePath('/')
 

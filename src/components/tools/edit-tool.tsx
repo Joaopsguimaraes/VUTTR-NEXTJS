@@ -1,7 +1,7 @@
 'use client'
 
-import { useActionState, useEffect } from 'react'
-import { onEditToolAction } from '@/actions/edit-tool-action'
+import { useActionState, useEffect, useState } from 'react'
+import { onUpdateToolAction } from '@/actions/update-tool-action'
 import {
   editToolSchema,
   type EditToolType,
@@ -14,27 +14,29 @@ import { useForm } from 'react-hook-form'
 
 import { useToast } from '@/hooks/use-toast'
 
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import { Skeleton } from './ui/skeleton'
-import { Textarea } from './ui/textarea'
+} from '../ui/dialog'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
+import { Skeleton } from '../ui/skeleton'
+import { Textarea } from '../ui/textarea'
 
 interface Props {
   data: ListToolsType
 }
 
 export function EditTool({ data }: Props) {
-  const [result, handleCreateTool, isPending] = useActionState(
-    onEditToolAction,
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
+  const [result, handleUpdateTool, isPending] = useActionState(
+    onUpdateToolAction,
     {
       error: false,
       message: '',
@@ -44,6 +46,7 @@ export function EditTool({ data }: Props) {
     resolver: zodResolver(editToolSchema),
     defaultValues: {
       ...data,
+      id: data.id,
       tags: data.tags.join(','),
     },
   })
@@ -70,15 +73,16 @@ export function EditTool({ data }: Props) {
     }
 
     if (result.message === 'SUCCESS') {
+      setOpenDialog(false)
       toast({
-        title: t('successCreateTool'),
+        title: t('successUpdateTool'),
         variant: 'success',
       })
     }
   }, [result])
 
   return (
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
         <Button size="icon" variant="ghost">
           <PencilIcon />
@@ -88,13 +92,18 @@ export function EditTool({ data }: Props) {
         <DialogHeader>
           <DialogTitle>{`${t('title')}: ${data.name}`}</DialogTitle>
         </DialogHeader>
-        <form action={handleCreateTool} className="flex flex-col gap-5">
+        <form action={handleUpdateTool} className="flex flex-col gap-5">
           {isPending ? (
             Array.from({ length: 4 }).map((_, idx) => (
               <Skeleton key={idx} className="h-10" />
             ))
           ) : (
             <>
+              <Input
+                {...form.register('id')}
+                className="hidden"
+                type="hidden"
+              />
               <div className="space-y-2">
                 <Label>{t('labelName')}</Label>
                 <Input
@@ -127,9 +136,11 @@ export function EditTool({ data }: Props) {
           )}
 
           <DialogFooter className="flex w-full justify-end gap-2">
-            <Button type="button" variant="outline" className="min-w-40">
-              {t('btnCancel')}
-            </Button>
+            <DialogClose asChild>
+              <Button type="button" variant="outline" className="min-w-40">
+                {t('btnCancel')}
+              </Button>
+            </DialogClose>
             <Button disabled={isPending} className="min-w-40">
               {isPending ? (
                 <Loader className="animate-spin" />
