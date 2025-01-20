@@ -5,7 +5,7 @@ import { transformZodErrors } from '@/utils/transform-zod-errors'
 import { createToolSchema } from '@/validations/create-tool-schema'
 import { z } from 'zod'
 
-import { createTool } from '@/lib/prisma'
+import { ToolService } from '@/lib/prisma'
 
 import { ZodErrors } from './../utils/transform-zod-errors'
 
@@ -23,7 +23,7 @@ export async function onCreateToolAction(
   try {
     const parsed = createToolSchema.parse(formData)
 
-    await createTool(parsed)
+    await ToolService.create(parsed)
 
     revalidatePath('/')
 

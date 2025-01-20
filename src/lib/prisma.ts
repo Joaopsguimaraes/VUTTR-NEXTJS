@@ -7,126 +7,125 @@ import { PrismaClient } from '@prisma/client'
 
 export const db = new PrismaClient()
 
-export async function getUser(): Promise<UserType> {
-  const user = await currentUser()
+export const ToolService = {
+  async create(tool: CreateToolSchemaType): Promise<void> {
+    const user = await UserService.getUser()
 
-  if (!user) {
-    throw Error('User not logged')
-  }
-
-  const userFounded = await db.user.findUnique({
-    where: {
-      clerkId: user.id,
-    },
-  })
-
-  if (!userFounded) {
-    throw Error('User not founded')
-  }
-
-  return userFounded
-}
-
-export async function createTool(tool: CreateToolSchemaType): Promise<void> {
-  const user = await getUser()
-
-  await db.tool.create({
-    data: {
-      ...tool,
-      userId: user.id,
-    },
-  })
-}
-
-export async function updateToolFromId(
-  toolId: string,
-  tool: CreateToolSchemaType
-): Promise<void> {
-  const user = await getUser()
-
-  await db.tool.update({
-    where: {
-      id: toolId,
-      AND: [
-        {
-          userId: user.id,
-        },
-      ],
-    },
-    data: {
-      ...tool,
-    },
-  })
-}
-
-export async function getToolFromId(toolId: string): Promise<ToolType> {
-  const user = await getUser()
-
-  const tool = await db.tool.findUniqueOrThrow({
-    where: {
-      id: toolId,
-      AND: {
+    await db.tool.create({
+      data: {
+        ...tool,
         userId: user.id,
       },
-    },
-  })
+    })
+  },
 
-  return tool
-}
+  async update(toolId: string, tool: CreateToolSchemaType): Promise<void> {
+    const user = await UserService.getUser()
 
-export async function getTools(
-  searchParams: GetToolsParams
-): Promise<ToolType[]> {
-  const user = await getUser()
-
-  if (searchParams.name) {
-    const data = await db.tool.findMany({
+    await db.tool.update({
       where: {
-        userId: {
-          equals: user.id,
-        },
+        id: toolId,
         AND: [
           {
-            name: {
-              contains: searchParams.name as string,
-              mode: 'insensitive',
-            },
+            userId: user.id,
           },
         ],
+      },
+      data: {
+        ...tool,
+      },
+    })
+  },
+
+  async findById(toolId: string): Promise<ToolType> {
+    const user = await UserService.getUser()
+
+    const tool = await db.tool.findUniqueOrThrow({
+      where: {
+        id: toolId,
+        AND: {
+          userId: user.id,
+        },
+      },
+    })
+
+    return tool
+  },
+
+  async findAll(searchParams: GetToolsParams): Promise<ToolType[]> {
+    const user = await UserService.getUser()
+
+    if (searchParams.name) {
+      const data = await db.tool.findMany({
+        where: {
+          userId: {
+            equals: user.id,
+          },
+          AND: [
+            {
+              name: {
+                contains: searchParams.name as string,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      })
+
+      return data
+    }
+
+    const data = await db.tool.findMany({
+      where: {
+        userId: user.id,
       },
     })
 
     return data
-  }
+  },
 
-  const data = await db.tool.findMany({
-    where: {
-      userId: user.id,
-    },
-  })
+  async delete(toolId: string) {
+    const user = await UserService.getUser()
 
-  return data
+    const toolFounded = await db.tool.findUnique({
+      where: {
+        id: toolId,
+        AND: {
+          userId: user.id,
+        },
+      },
+    })
+
+    if (!toolFounded) {
+      throw Error('Tool not founded')
+    }
+
+    await db.tool.delete({
+      where: {
+        id: toolFounded.id,
+      },
+    })
+  },
 }
 
-export async function deleteToolFromId(toolId: string) {
-  const user = await getUser()
+export const UserService = {
+  async getUser(): Promise<UserType> {
+    const user = await currentUser()
 
-  const toolFounded = await db.tool.findUnique({
-    where: {
-      id: toolId,
-      AND: {
-        userId: user.id,
+    if (!user) {
+      throw Error('User not logged')
+    }
+
+    const userFounded = await db.user.findUnique({
+      where: {
+        clerkId: user.id,
       },
-    },
-  })
+    })
 
-  if (!toolFounded) {
-    throw Error('Tool not founded')
-  }
+    if (!userFounded) {
+      throw Error('User not founded')
+    }
 
-  await db.tool.delete({
-    where: {
-      id: toolFounded.id,
-    },
-  })
+    return userFounded
+  },
 }

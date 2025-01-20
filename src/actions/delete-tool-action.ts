@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 
-import { deleteToolFromId } from '@/lib/prisma'
+import { ToolService } from '@/lib/prisma'
 
 type DeleteToolFormState = {
   message: string
@@ -15,7 +15,7 @@ export async function onRemoveToolAction(
   const formData = Object.fromEntries(data)
 
   try {
-    await deleteToolFromId(formData.id as string)
+    await ToolService.delete(formData.id as string)
 
     revalidatePath('/')
     return {

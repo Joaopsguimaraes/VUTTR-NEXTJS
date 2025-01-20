@@ -1,6 +1,6 @@
 import { listToolsSchema } from '@/validations/list-tools'
 
-import { getTools } from '@/lib/prisma'
+import { ToolService } from '@/lib/prisma'
 import { ListTools } from '@/components/tools/list-tools'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default async function Page({ searchParams }: Props) {
   const search = await searchParams
 
-  const tools = await getTools(search)
+  const tools = await ToolService.findAll(search)
 
   const toolsParsed = tools.map((tool) => listToolsSchema.parse(tool))
 

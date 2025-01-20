@@ -5,7 +5,7 @@ import { transformZodErrors } from '@/utils/transform-zod-errors'
 import { editToolSchema } from '@/validations/edit-tool-schema'
 import { z } from 'zod'
 
-import { updateToolFromId } from '@/lib/prisma'
+import { ToolService } from '@/lib/prisma'
 
 import { ZodErrors } from '../utils/transform-zod-errors'
 
@@ -23,7 +23,7 @@ export async function onUpdateToolAction(
   try {
     const toolParsed = editToolSchema.parse(formData)
 
-    await updateToolFromId(toolParsed.id, toolParsed)
+    await ToolService.update(toolParsed.id, toolParsed)
 
     revalidatePath('/')
 
