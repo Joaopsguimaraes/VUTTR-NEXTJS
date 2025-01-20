@@ -25,7 +25,6 @@ function setLanguageCookie({ response, cookieName, cookieValue }: MiddleProps) {
   const maxAge = ONE_WEEK_MAX_AGE
 
   const cookieHeader = `${cookieName}=${cookieValue}; Path=/; Max-Age=${maxAge}; SameSite=Strict`
-  
   response.headers.set('Set-Cookie', cookieHeader)
 }
 
