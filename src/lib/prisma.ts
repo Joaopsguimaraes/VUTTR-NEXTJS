@@ -55,7 +55,29 @@ export const ToolService = {
   async findAll(searchParams: GetToolsParams): Promise<ToolType[]> {
     const user = await UserService.getUser()
 
-    if (searchParams.name) {
+    const { name, hasTags } = searchParams
+
+    if (hasTags) {
+      const data = await db.tool.findMany({
+        where: {
+          userId: {
+            equals: user.id,
+          },
+          AND: [
+            {
+              tags: {
+                contains: name as string,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      })
+
+      return data
+    }
+
+    if (name) {
       const data = await db.tool.findMany({
         where: {
           userId: {
@@ -64,7 +86,7 @@ export const ToolService = {
           AND: [
             {
               name: {
-                contains: searchParams.name as string,
+                contains: name as string,
                 mode: 'insensitive',
               },
             },

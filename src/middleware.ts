@@ -6,6 +6,8 @@ import acceptLanguage from 'accept-language'
 
 import { cookieName, fallbackLng, languages } from './i18n/settings'
 
+const ONE_WEEK_MAX_AGE = 60 * 60 * 24 * 7
+
 acceptLanguage.languages(languages)
 
 const isPublicRoute = createRouteMatcher([
@@ -20,8 +22,10 @@ type MiddleProps = {
 }
 
 function setLanguageCookie({ response, cookieName, cookieValue }: MiddleProps) {
-  const maxAge = 60 * 60 * 24 * 7 // one week
+  const maxAge = ONE_WEEK_MAX_AGE
+
   const cookieHeader = `${cookieName}=${cookieValue}; Path=/; Max-Age=${maxAge}; SameSite=Strict`
+  
   response.headers.set('Set-Cookie', cookieHeader)
 }
 

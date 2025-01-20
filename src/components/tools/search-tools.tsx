@@ -1,15 +1,20 @@
 'use client'
 
-import type { FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useDebouncedCallback } from '@/utils/use-debounce-callback'
 import { SearchIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Button } from '../ui/button'
+import { Checkbox } from '../ui/checkbox'
 import { Input } from '../ui/input'
+import { Label } from '../ui/label'
+
+type CheckedState = boolean | 'indeterminate'
 
 export function SearchTool() {
+  const [hasTags, setHasTags] = useState<CheckedState>(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -23,6 +28,17 @@ export function SearchTool() {
     if (search) {
       newSearchParams.set('name', search)
     } else {
+      newSearchParams.delete('name')
+    }
+
+    if (hasTags) {
+      newSearchParams.set('hasTags', 'true')
+    } else {
+      newSearchParams.delete('hasTags')
+    }
+
+    //TODO: Fix this, removing 'on'
+    if (search === 'on') {
       newSearchParams.delete('name')
     }
 
@@ -45,6 +61,10 @@ export function SearchTool() {
     submitSearchTerm(search)
   }
 
+  function handleCheckboxChange(check: CheckedState) {
+    setHasTags(check)
+  }
+
   const debouncedHandleSubmit = useDebouncedCallback(handleOnChange, 500)
 
   return (
@@ -61,10 +81,14 @@ export function SearchTool() {
           id="name"
           defaultValue={searchParams.get('name') ?? ''}
         />
-        {/* <div className="mt-2 flex items-center gap-2">
-          <Checkbox />
-          <Label>{t('enableSearchTags')}</Label>
-        </div> */}
+        <div className="mt-2 flex items-center gap-2">
+          <Checkbox
+            id="hasTags"
+            checked={hasTags}
+            onCheckedChange={handleCheckboxChange}
+          />
+          <Label htmlFor="hasTags">{t('enableSearchTags')}</Label>
+        </div>
       </div>
       <Button variant="outline" size="icon" type="submit">
         <SearchIcon />
