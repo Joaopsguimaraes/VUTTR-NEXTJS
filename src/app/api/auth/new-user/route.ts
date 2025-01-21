@@ -37,7 +37,7 @@ export async function GET() {
   }
 
   return new NextResponse(null, {
-    status: 302, // 302 Found - temporary redirect,
+    status: 302,
     headers: {
       Location: 'http://localhost:3000/pt',
     },
