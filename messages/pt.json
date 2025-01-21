@@ -1,6 +1,6 @@
 {
   "CreateTools": {
-    "title": "Cadastre uma tool",
+    "title": "Cadastre uma ferramenta",
     "btnCreate": "Cadastrar",
     "btnCancel": "Cancelar",
     "labelName": "Titulo",
@@ -8,10 +8,10 @@
     "labelUrl": "URL",
     "urlPlaceholder": "https://zod.dev/",
     "labelDescription": "Descrição",
-    "descriptionPlaceholder": "Digite uma descrição sobre a tool...",
+    "descriptionPlaceholder": "Digite uma descrição sobre a ferramenta...",
     "labelTags": "Tags",
     "tagsPlaceholder": "Ex: validação, formulário, javascript, typescript",
-    "successCreateTool": "Tool criada com sucesso",
+    "successCreateTool": "Ferramenta criada com sucesso",
     "validations": {
       "name": "Nome",
       "description": "Descrição",
@@ -20,13 +20,13 @@
     }
   },
   "ListTools": {
-    "title": "Tools cadastradas",
+    "title": "Ferramentas cadastradas",
     "search": "Pesquisar",
-    "searchPlaceholder": "Pesquise pelas tools cadastradas...",
+    "searchPlaceholder": "Pesquise pelas ferramentas cadastradas...",
     "enableSearchTags": "Pesquisar por tags"
   },
   "EditTool": {
-    "title": "Atualizar a tool",
+    "title": "Atualizar a ferramenta",
     "btnUpdate": "Atualizar",
     "btnCancel": "Cancelar",
     "labelName": "Titulo",
@@ -34,10 +34,10 @@
     "labelUrl": "URL",
     "urlPlaceholder": "https://zod.dev/",
     "labelDescription": "Descrição",
-    "descriptionPlaceholder": "Digite uma descrição sobre a tool...",
+    "descriptionPlaceholder": "Digite uma descrição sobre a ferramenta...",
     "labelTags": "Tags",
     "tagsPlaceholder": "Ex: validação, formulário, javascript, typescript",
-    "successUpdateTool": "Tool atualizada com sucesso",
+    "successUpdateTool": "Ferramenta atualizada com sucesso",
     "validations": {
       "id": "ID",
       "name": "Nome",
@@ -47,7 +47,7 @@
     }
   },
   "removeTool":{
-    "titleDialog": "Deseja remover a tool",
+    "titleDialog": "Deseja remover a ferramenta?",
     "btnConfirm": "Remover",
     "btnCancel": "Cancelar"
   }

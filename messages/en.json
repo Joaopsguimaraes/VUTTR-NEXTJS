@@ -1,54 +1,54 @@
 {
   "CreateTools": {
-    "title": "Cadastre uma tool",
-    "btnCreate": "Cadastrar",
-    "btnCancel": "Cancelar",
-    "labelName": "Titulo",
+    "title": "Register a tool",
+    "btnCreate": "Register",
+    "btnCancel": "Cancel",
+    "labelName": "Title",
     "namePlaceholder": "Ex.: Zod",
     "labelUrl": "URL",
     "urlPlaceholder": "https://zod.dev/",
-    "labelDescription": "Descrição",
-    "descriptionPlaceholder": "Digite uma descrição sobre a tool...",
+    "labelDescription": "Description",
+    "descriptionPlaceholder": "Enter a description of the tool...",
     "labelTags": "Tags",
-    "tagsPlaceholder": "Ex: validação, formulário, javascript, typescript",
-    "successCreateTool": "Tool criada com sucesso",
+    "tagsPlaceholder": "Ex: validation, form, javascript, typescript",
+    "successCreateTool": "Tool created successfully",
     "validations": {
-      "name": "Nome",
-      "description": "Descrição",
+      "name": "Name",
+      "description": "Description",
       "url": "URL",
       "tags": "Tags"
     }
   },
   "ListTools": {
-    "title": "Tools cadastradas",
-    "search": "Pesquisar",
-    "searchPlaceholder": "Pesquise pelas tools cadastradas...",
-    "enableSearchTags": "Pesquisar por tags"
+    "title": "Registered tools",
+    "search": "Search",
+    "searchPlaceholder": "Search for registered tools...",
+    "enableSearchTags": "Search by tags"
   },
   "EditTool": {
-    "title": "Atualizar a tool",
-    "btnUpdate": "Atualizar",
-    "btnCancel": "Cancelar",
-    "labelName": "Titulo",
+    "title": "Update the tool",
+    "btnUpdate": "Update",
+    "btnCancel": "Cancel",
+    "labelName": "Title",
     "namePlaceholder": "Ex.: Zod",
     "labelUrl": "URL",
     "urlPlaceholder": "https://zod.dev/",
-    "labelDescription": "Descrição",
-    "descriptionPlaceholder": "Digite uma descrição sobre a tool...",
+    "labelDescription": "Description",
+    "descriptionPlaceholder": "Enter a description of the tool...",
     "labelTags": "Tags",
-    "tagsPlaceholder": "Ex: validação, formulário, javascript, typescript",
-    "successUpdateTool": "Tool atualizada com sucesso",
+    "tagsPlaceholder": "Ex: validation, form, javascript, typescript",
+    "successUpdateTool": "Tool updated successfully",
     "validations": {
       "id": "ID",
-      "name": "Nome",
-      "description": "Descrição",
+      "name": "Name",
+      "description": "Description",
       "url": "URL",
       "tags": "Tags"
     }
   },
   "removeTool":{
-    "titleDialog": "Deseja remover a tool",
-    "btnConfirm": "Remover",
-    "btnCancel": "Cancelar"
+    "titleDialog": "Would you like to remove the tool?",
+    "btnConfirm": "Remove",
+    "btnCancel": "Cancel"
   }
 }
